@@ -56,25 +56,25 @@ ExternalProject_Add(spdlog
         )
 
 
-
-#### marnav https://github.com/mariokonrad/marnav
-
-ExternalProject_Add(marnav
-        GIT_REPOSITORY https://github.com/raffmont/marnav.git
-        CMAKE_ARGS -DENABLE_STATIC=OFF -DCMAKE_BUILD_TYPE=Release -DENABLE_STATIC=ON -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_LOCATION}
-        TIMEOUT 360
-        )
-
-
-
 #### json
 
 ExternalProject_Add(json
         GIT_TAG v3.2.0
         GIT_REPOSITORY https://github.com/nlohmann/json.git
-        CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_LOCATION}
+        CMAKE_ARGS -DJSON_BuildTests=OFF -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_LOCATION}
         TIMEOUT 360
         )
+
+#### marnav https://github.com/mariokonrad/marnav
+
+ExternalProject_Add(marnav
+        GIT_REPOSITORY https://github.com/raffmont/marnav.git
+        CMAKE_ARGS -DENABLE_STATIC=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_LOCATION}
+        TIMEOUT 360
+        )
+
+
+
 
 #### variant
 
@@ -98,6 +98,7 @@ ExternalProject_Add(libuv
 
 ExternalProject_Add(uvw
         GIT_REPOSITORY https://github.com/skypjack/uvw.git
+        GIT_TAG cpp11
         CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_LOCATION}
         TIMEOUT 360
         )
@@ -197,8 +198,8 @@ add_executable(
 # Expicit the dependencies
 add_dependencies(${PROJECT_NAME} serial)
 add_dependencies(${PROJECT_NAME} spdlog)
-add_dependencies(${PROJECT_NAME} marnav)
 add_dependencies(${PROJECT_NAME} json)
+add_dependencies(${PROJECT_NAME} marnav)
 add_dependencies(${PROJECT_NAME} variant)
 add_dependencies(${PROJECT_NAME} libuv)
 add_dependencies(uWebSockets libuv)
